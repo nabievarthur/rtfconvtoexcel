@@ -11,12 +11,14 @@ import (
 func BuildUI(win fyne.Window) fyne.CanvasObject {
 	notifier := NewNotifier()
 	rtfConverter := service.NewRtfConverter()
+	fileNamer := service.NewFileNamer()
 
 	label := widget.NewLabel("Выберите .rtf файл для конвертации")
 	label.Alignment = fyne.TextAlignCenter
 
 	convertBtn := widget.NewButtonWithIcon("Конвертировать", theme.ConfirmIcon(), func() {
-		res := rtfConverter.ConvertRtfToExcel(label.Text, "output.xlsx")
+		outputFileName := fileNamer.SetName()
+		res := rtfConverter.ConvertRtfToExcel(label.Text, outputFileName)
 		if !res {
 			notifier.Show("Ошибка")
 			return
