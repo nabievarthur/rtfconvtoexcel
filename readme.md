@@ -1,0 +1,1 @@
+build: go build -ldflags="-s -w -H=windowsgui" -o ConverterRTF.exe ./cmd/gui
